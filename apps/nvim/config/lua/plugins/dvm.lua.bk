@@ -1,0 +1,113 @@
+-- なんか動かないので保留
+-- lazy.vimの使い方に問題ありそう
+
+--" ddc.vim本体
+--Plug 'Shougo/ddc.vim'
+--" DenoでVimプラグインを開発するためのプラグイン
+--Plug 'vim-denops/denops.vim'
+--" ポップアップウィンドウを表示するプラグイン
+--Plug 'Shougo/pum.vim'
+--" カーソル周辺の既出単語を補完するsource
+--Plug 'Shougo/ddc-around'
+--" ファイル名を補完するsource
+--Plug 'LumaKernel/ddc-file'
+--" 入力中の単語を補完の対象にするfilter
+--Plug 'Shougo/ddc-matcher_head'
+--" 補完候補を適切にソートするfilter
+--Plug 'Shougo/ddc-sorter_rank'
+--" 補完候補の重複を防ぐためのfilter
+--Plug 'Shougo/ddc-converter_remove_overlap'
+
+return {
+  {
+    -- DDU本体
+    'Shougo/ddu.vim',
+    lazy = false,
+    config = function()
+      vim.cmd([[
+
+  call ddu#custom#patch_global({
+\   'ui': 'ff',
+\   'sources': [{'name':'file','params':{}},{'name':'mr'},{'name':'register'},{'name':'buffer'}],
+\   'sourceOptions': {
+\     '_': {
+\       'matchers': ['matcher_substring'],
+\     },
+\   },
+\   'kindOptions': {
+\     'file': {
+\       'defaultAction': 'open',
+\     },
+\   },
+\ })
+
+autocmd FileType ddu-ff call s:ddu_my_settings()
+function! s:ddu_my_settings() abort
+  nnoremap <buffer><silent> <CR>
+        \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> <Space>
+        \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer><silent> i
+        \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+  nnoremap <buffer><silent> q
+        \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+endfunction
+
+autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
+function! s:ddu_filter_my_settings() abort
+  nnoremap <buffer> <CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> q
+  \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  inoremap <buffer> <CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  inoremap <buffer> <C-j>
+  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
+  inoremap <buffer> <C-k>
+  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
+endfunction
+
+"ddu keymapping.
+nnoremap <SID>[ug] <Nop>
+nmap ,u <SID>[ug]
+
+nnoremap <silent> <SID>[ug]m :<C-u>Ddu mr<CR>
+nnoremap <silent> <SID>[ug]b :<C-u>Ddu buffer<CR>
+nnoremap <silent> <SID>[ug]r :<C-u>Ddu register<CR>
+nnoremap <silent> <SID>[ug]n :<C-u>Ddu file -source-param-new -volatile<CR>
+nnoremap <silent> <SID>[ug]f :<C-u>Ddu file<CR>
+
+      ]])
+    end
+  }, {
+    -- Deno利用に必要
+    'vim-denops/denops.vim',
+    lazy = false,
+  }, {
+    'Shougo/ddu-ui-ff',
+    lazy = false,
+  }, {
+    'Shougo/ddu-source-file',
+    lazy = false,
+  }, {
+    'Shougo/ddu-source-register',
+    lazy = false,
+  }, {
+    'kuuote/ddu-source-mr',
+    lazy = false,
+  }, {
+    'lambdalisue/mr.vim',
+    lazy = false,
+  }, {
+    'shun/ddu-source-buffer',
+    lazy = false,
+  }, {
+    'Shougo/ddu-filter-matcher_substring',
+    lazy = false,
+  }, {
+    'Shougo/ddu-commands.vim',
+    lazy = false,
+  }
+}
+
+

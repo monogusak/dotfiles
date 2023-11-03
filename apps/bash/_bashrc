@@ -1,0 +1,223 @@
+# local before
+[ -f ~/.bash_local_before ] && source ~/.bash_local_before
+
+# .profileが読み込まれないケースに対応
+add_path() {
+  case $PATH in *$1*) return;; esac
+  [ -d "$1" ] || return
+  export PATH="$1:$PATH"
+}
+add_path $HOME/bin
+add_path $HOME/.local/bin
+
+# go
+# add_path $HOME/apps/go/bin
+
+# deno
+export DENO_INSTALL=$HOME/.deno
+add_path $DENO_INSTALL/bin
+
+# node
+export VOLTA_HOME="$HOME/.volta"
+add_path $VOLTA_HOME/bin
+
+# rust
+add_path $HOME/.cargo/bin
+
+# ruby
+add_path $HOME/.rbenv/bin
+eval "$(rbenv init - bash)"
+
+unset -f add_path
+
+# perl
+if (command -v perl && command -v cpanm) >/dev/null 2>&1; then
+# export PERL_MM_OPT=$HOME/.local/share/perl5
+  export PERL_MM_OPT=$HOME/perl5
+  test -d "$PERL_MM_OPT" && eval $(perl -I "$PERL_MM_OPT" -Mlocal::lib)
+fi
+
+# シェルスクリプトとかではこれ以上実行しない
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+umask 066
+#ulimit -c 0
+
+export PAGER=less
+export LESS='-X -i -P ?f%f:(stdin).  ?lb%lb?L/%L..  [?eEOF:?pb%pb\%..]'
+export LS_COLORS="ow=04;01;34:tw=04;01;34"
+export EDITOR=/usr/bin/vim
+
+# History
+export IGNOREEOF=10
+export HISTSIZE=50000
+export HISTFILESIZE=500000
+export HISTCONTROL=ignoreboth:erasedups
+export HISTIGNORE=?:??:???:exit
+export HISTTIMEFORMAT='%Y%m%d %T '
+
+# ##############################
+# Shell options
+
+# 履歴ファイルを上書きではなく追加する。
+shopt -s histappend
+# "!"をつかって履歴上のコマンドを実行するとき、
+# 実行するまえに必ず展開結果を確認できるようにする。
+shopt -s histverify
+# 履歴の置換に失敗したときやり直せるようにする。
+shopt -s histreedit
+# 端末の画面サイズを自動認識。
+shopt -s checkwinsize
+# "@" のあとにホスト名を補完させ
+shopt -s hostcomplete
+# つねにパス名のテーブルをチェックする。
+shopt -s checkhash
+# なにも入力してないときはコマンド名を補完しない。
+shopt -s no_empty_cmd_completion
+
+# ##############################
+# basic apps
+
+# lesspipe
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# dircolors
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
+
+# ##############################
+# Startup
+
+export LANG=ja_JP.UTF-8
+export LANGUAGE=jp
+
+# PS
+h2=$HOSTNAME
+u2=$USER
+if [ "$col" == "" ]
+then
+  col="1;35"
+fi
+PS1="$u2@\[\e[${col}m\]$h2\[\e[m \t \w \n[\!]\$ "
+
+# ##############################
+# hostごとの処理
+
+# デスクトップ環境のみ
+if [ "$DISPLAY" != "" ]
+then
+  # 不要になった？ ubuntu-serverだと必要だったりするかも？
+  export GTK_IM_MODULE=ibus
+  export XMODIFIERS=@im=ibus
+  export CLUTTER_IM_MODULE=ibus
+  export QT_IM_MODULE=ibus
+fi
+
+# ##############################
+# other
+alias df='df -h'
+# alias wezterm='flatpak run org.wezfurlong.wezterm'
+
+# git
+alias gitdiff='git difftool --tool=vimdiff --no-prompt'
+
+# クリップボード
+if [ "`which xclip`" != "" ]
+then
+  alias tos='xclip -i -selection clipboard'
+fi
+
+# nvim
+if [ "`which nvim`" != "" ]
+then
+# alias vi='test -f Session.vim && nvim -S Session.vim || nvim'
+  alias vim=nvim
+  alias vimdiff='nvim -d'
+  export EDITOR=`which nvim`
+  function vi() {
+    if [ $# -eq 0 -a -f Session.vim ]
+    then
+      nvim -S Session.vim
+    else
+      nvim $*
+    fi
+  }
+fi
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# peco
+if [ "`which peco`" != "" ]
+then
+  _replace_by_history() {
+      local l=$(HISTTIMEFORMAT= history | cut -d" " -f4- | tac | sed -e 's/^\s*[0-9]*    \+\s\+//' | peco --query "$READLINE_LINE")
+      READLINE_LINE="$l"
+      READLINE_POINT=${#l}
+  }
+  bind -x '"\C-r": _replace_by_history'
+  bind    '"\C-xr": reverse-search-history'
+fi
+
+# fortuneががインストールされていたら表示
+if [ "`which fortune`" != "" ]
+then
+  DAT_DIR=$HOME/bin/dat
+  DAT_DIR=$HOME/.config/fortune-dat
+  [ -d "$DAT_DIR" ]    && fortune $DAT_DIR
+  [ -d "$DAT_DIR/my" ] && fortune $DAT_DIR/my
+fi
+
+# if [ "$DISPLAY" != "" ]
+# then
+# 天気予報
+# find $HOME/.wttr-cache -mmin -30 | grep wttr-cache > /dev/null || curl wttr.in/$myaddress?lang=ja > $HOME/.wttr-cache 2> /dev/null
+# cat $HOME/.wttr-cache
+
+# キーボード設定
+# if bluetoothctl devices | grep HHKB-Hybrid > /dev/null
+# then
+#   echo HHKB-Hybrid is detected.
+#   xmodmap ~/.xmodmaprc
+# fi
+
+# i3 configから実行するようになった
+# [ "`which chwp`" != "" ] && chwp same
+
+# fi
+
+# local after
+[ -f ~/.bash_local_after ] && source ~/.bash_local_after
+

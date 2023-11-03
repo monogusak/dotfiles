@@ -1,0 +1,18 @@
+
+OSバージョンアップしたときに下記フォルダの内容をチェックすること
+  /etc/skel/
+
+
+読み込みタイミング
+  X環境とか
+    .profile が読み込まれた環境からbashが開かれる
+    .bashrc だけを読み込み
+  sshログイン
+    .profile
+    .bashrc
+    ※.bashrcは.profileから読み込まれるので.profileの内容によっては読み込まれない
+  sshコマンド
+    .bashrcのみ
+    interactiveモード($-にiが含まれる)
+
+

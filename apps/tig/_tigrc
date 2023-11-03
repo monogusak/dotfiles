@@ -1,0 +1,43 @@
+
+## generic
+#--------------------------------------------------------------#
+##        tig settings                                        ##
+#--------------------------------------------------------------#
+set main-view  = id:no date:default,local=yes author commit-title:graph=yes,refs=yes,overflow=false
+set blame-view = id:yes,color author date:default line-number:yes,interval=1 text
+set pager-view = line-number:yes,interval=1 text
+set stage-view = line-number:yes,interval=1 text
+set log-view   = line-number:yes,interval=1 text
+set blob-view  = line-number:yes,interval=1 text
+set diff-view  = line-number:yes,interval=1 text:yes,commit-title-overflow=no
+
+set tab-size = 2
+set ignore-case = true
+#set vertical-split = yes
+#set split-view-width = 80%
+#set split-view-height = 80%
+# set diff-options = -m --first-parent
+set refresh-mode = auto
+# set line-graphics = utf-8
+set line-graphics = ascii
+
+set diff-highlight = true
+
+#--------------------------------------------------------------#
+##        key bind                                            ##
+#--------------------------------------------------------------#
+
+bind generic g move-first-line
+bind generic G move-last-line
+
+bind main    P ?@!git push origin %(repo:head)
+bind main    F ?@!git fetch %(remote)
+bind main    U ?@!git pull  %(remote)
+
+bind status  D ?@rm %(file)
+
+## branch
+bind branch n !git checkout -b %(prompt) %(branch)
+
+color cursor black white bold
+

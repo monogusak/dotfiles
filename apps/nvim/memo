@@ -1,0 +1,23 @@
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt-get update
+sudo apt-get install neovim
+
+# node
+curl https://get.volta.sh | bash
+volta install node
+npm install -g neovim
+
+# python
+sudo apt install python3-pip
+pip3 install pynvim
+
+# perl
+sudo apt install cpanminus
+cpanm -n Neovim::Ext --sudo
+
+# ruby
+# ../ruby/memo を参照
+
+echo :checkhealth
+

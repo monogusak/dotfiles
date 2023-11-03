@@ -1,0 +1,7 @@
+git clone https://github.com/jonas/tig
+cd tig
+./autogen.sh
+./configure
+make
+sudo make install
+tig -v

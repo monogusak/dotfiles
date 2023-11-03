@@ -1,0 +1,20 @@
+
+bindsym $mod+t mode "transparent"
+mode "transparent" {
+  bindsym 0 exec --no-startup-id transset -i `xdotool getwindowfocus` 1.0
+  bindsym 1 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.9
+  bindsym 2 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.8
+  bindsym 3 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.7
+  bindsym 4 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.6
+  bindsym 5 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.5
+  bindsym 6 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.4
+  bindsym 7 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.3
+  bindsym 8 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.2
+  bindsym 9 exec --no-startup-id transset -i `xdotool getwindowfocus` 0.1
+
+  # back to default
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+t mode "default"
+}
+

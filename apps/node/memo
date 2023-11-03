@@ -1,0 +1,14 @@
+# # install volta
+curl https://get.volta.sh | bash
+volta install node
+
+# install package
+# sudo apt install nodejs
+
+# # install n
+# sudo apt install nodejs npm
+# sudo npm install n -g
+# sudo n latest
+# sudo apt purge nodejs npm
+
+node -v

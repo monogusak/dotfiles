@@ -1,0 +1,182 @@
+# ##############################
+# workspace
+set $mode_d_main  Main(下)
+set $mode_d_sub   Sub(上)
+
+set $monitor_d_main  HDMI-1
+set $monitor_d_sub   DP-1
+
+
+set $wms0 "10"
+set $wms1 "11"
+set $wms2 "12"
+set $wms3 "13"
+set $wms4 "14"
+set $wms5 "15"
+set $wms6 "16"
+set $wms7 "17"
+set $wms8 "18"
+set $wms9 "19"
+
+set $wss0 "20"
+set $wss1 "21"
+set $wss2 "22"
+set $wss3 "23"
+set $wss4 "24"
+set $wss5 "25"
+set $wss6 "26"
+set $wss7 "27"
+set $wss8 "28"
+set $wss9 "29"
+
+workspace $wms0 output $monitor_d_main
+workspace $wms1 output $monitor_d_main
+workspace $wms2 output $monitor_d_main
+workspace $wms3 output $monitor_d_main
+workspace $wms4 output $monitor_d_main
+workspace $wms5 output $monitor_d_main
+workspace $wms6 output $monitor_d_main
+workspace $wms7 output $monitor_d_main
+workspace $wms8 output $monitor_d_main
+workspace $wms9 output $monitor_d_main
+
+workspace $wss0 output $monitor_d_sub
+workspace $wss1 output $monitor_d_sub
+workspace $wss2 output $monitor_d_sub
+workspace $wss3 output $monitor_d_sub
+workspace $wss4 output $monitor_d_sub
+workspace $wss5 output $monitor_d_sub
+workspace $wss6 output $monitor_d_sub
+workspace $wss7 output $monitor_d_sub
+workspace $wss8 output $monitor_d_sub
+workspace $wss9 output $monitor_d_sub
+
+#bindsym $mod+p        focus output $monitor_d_main; mode $mode_d_main
+#bindsym $mod+Shift+p  focus output $monitor_d_sub;  mode $mode_d_sub
+bindsym $mod+o        focus output $monitor_d_main; mode $mode_d_main
+bindsym $mod+Shift+o  focus output $monitor_d_sub;  mode $mode_d_sub
+
+mode "$mode_d_main" {
+  # switch to workspace
+  bindsym 0 workspace number $wms0
+  bindsym 1 workspace number $wms1
+  bindsym 2 workspace number $wms2
+  bindsym 3 workspace number $wms3
+  bindsym 4 workspace number $wms4
+  bindsym 5 workspace number $wms5
+  bindsym 6 workspace number $wms6
+  bindsym 7 workspace number $wms7
+  bindsym 8 workspace number $wms8
+  bindsym 9 workspace number $wms9
+
+  bindsym a     workspace number $wms0
+  bindsym s     workspace number $wms1
+  bindsym d     workspace number $wms2
+  bindsym f     workspace number $wms3
+  bindsym g     workspace number $wms4
+# bindsym h     workspace number $wms5
+# bindsym j     workspace number $wms6
+# bindsym k     workspace number $wms7
+# bindsym l     workspace number $wms8
+# bindsym space workspace number $wms9
+
+  # move focused container to workspace
+  bindsym Shift+0 move container to workspace number $wms0
+  bindsym Shift+1 move container to workspace number $wms1
+  bindsym Shift+2 move container to workspace number $wms2
+  bindsym Shift+3 move container to workspace number $wms3
+  bindsym Shift+4 move container to workspace number $wms4
+  bindsym Shift+5 move container to workspace number $wms5
+  bindsym Shift+6 move container to workspace number $wms6
+  bindsym Shift+7 move container to workspace number $wms7
+  bindsym Shift+8 move container to workspace number $wms8
+  bindsym Shift+9 move container to workspace number $wms9
+
+  bindsym Shift+a     move container to workspace number $wms0
+  bindsym Shift+s     move container to workspace number $wms1
+  bindsym Shift+d     move container to workspace number $wms2
+  bindsym Shift+f     move container to workspace number $wms3
+  bindsym Shift+g     move container to workspace number $wms4
+# bindsym Shift+h     move container to workspace number $wms5
+# bindsym Shift+j     move container to workspace number $wms6
+# bindsym Shift+k     move container to workspace number $wms7
+# bindsym Shift+l     move container to workspace number $wms8
+# bindsym Shift+space move container to workspace number $wms9
+
+  bindsym j        focus left
+  bindsym k        focus down
+  bindsym i        focus up
+  bindsym l        focus right
+  bindsym Shift+j  move  left
+  bindsym Shift+k  move  down
+  bindsym Shift+i  move  up
+  bindsym Shift+l  move  right
+
+  bindsym x        kill
+
+  # back to default
+  bindsym Return        focus output $monitor_d_main; mode "default"
+  bindsym Escape                                      mode "default"
+# bindsym $mod+p        focus output $monitor_d_sub;  mode $mode_d_sub
+# bindsym $mod+Shift+p  focus output $monitor_d_sub;  mode $mode_d_sub
+  bindsym $mod+o        focus output $monitor_d_sub;  mode $mode_d_sub
+  bindsym $mod+Shift+o  focus output $monitor_d_main; mode $mode_d_main
+}
+
+mode "$mode_d_sub" {
+  # switch to workspace
+  bindsym 0 workspace number $wss0
+  bindsym 1 workspace number $wss1
+  bindsym 2 workspace number $wss2
+  bindsym 3 workspace number $wss3
+  bindsym 4 workspace number $wss4
+  bindsym 5 workspace number $wss5
+  bindsym 6 workspace number $wss6
+  bindsym 7 workspace number $wss7
+  bindsym 8 workspace number $wss8
+  bindsym 9 workspace number $wss9
+
+  bindsym a     workspace number $wss0
+  bindsym s     workspace number $wss1
+  bindsym d     workspace number $wss2
+  bindsym f     workspace number $wss3
+  bindsym g     workspace number $wss4
+
+  # move focused container to workspace
+  bindsym Shift+0 move container to workspace number $wss0
+  bindsym Shift+1 move container to workspace number $wss1
+  bindsym Shift+2 move container to workspace number $wss2
+  bindsym Shift+3 move container to workspace number $wss3
+  bindsym Shift+4 move container to workspace number $wss4
+  bindsym Shift+5 move container to workspace number $wss5
+  bindsym Shift+6 move container to workspace number $wss6
+  bindsym Shift+7 move container to workspace number $wss7
+  bindsym Shift+8 move container to workspace number $wss8
+  bindsym Shift+9 move container to workspace number $wss9
+
+  bindsym Shift+a move container to workspace number $wss0
+  bindsym Shift+s move container to workspace number $wss1
+  bindsym Shift+d move container to workspace number $wss2
+  bindsym Shift+f move container to workspace number $wss3
+  bindsym Shift+g move container to workspace number $wss4
+
+  bindsym j        focus left
+  bindsym k        focus down
+  bindsym i        focus up
+  bindsym l        focus right
+  bindsym Shift+j  move  left
+  bindsym Shift+k  move  down
+  bindsym Shift+i  move  up
+  bindsym Shift+l  move  right
+
+  bindsym x        kill
+
+  # back to default
+  bindsym Return        focus output $monitor_d_sub;  mode "default"
+  bindsym Escape                                      mode "default"
+# bindsym $mod+p        focus output $monitor_d_main; mode $mode_d_main
+# bindsym $mod+Shift+p  focus output $monitor_d_main; mode $mode_d_main
+  bindsym $mod+o        focus output $monitor_d_main; mode $mode_d_main
+  bindsym $mod+Shift+o  focus output $monitor_d_sub;  mode $mode_d_sub
+}
+

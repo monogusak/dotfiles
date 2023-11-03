@@ -1,0 +1,9 @@
+wget -qO - https://github.com/PRATAP-KUMAR/ubuntu-gdm-set-background/archive/main.tar.gz | tar zx --strip-components=1 ubuntu-gdm-set-background-main/ubuntu-gdm-set-background
+
+sudo apt install libg lib2.0-dev-bin -y
+
+
+sudo ./ubuntu-gdm-set-background --image aaa.png
+sudo ./ubuntu-gdm-set-background --gradient horizontal \#008FCD \#BCBDBD
+sudo ./ubuntu-gdm-set-background --color \#5D0308
+

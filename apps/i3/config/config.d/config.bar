@@ -1,0 +1,61 @@
+# title bar
+# class                 border  backgr. text    indicator child_border
+# client.focused          #f0b0b0 #c08080 #ffffff #00ffff   #f0b0b0
+# client.focused_inactive #b0b0b0 #808080 #e0e0e0 #00ffff   #b0b0b0
+# client.unfocused        #b0b0f0 #8080c0 #e0e0e0 #00ffff   #b0b0f0
+client.focused          #c08080 #c08080 #ffffff #c08080   #f0b0b0
+client.focused_inactive #808080 #808080 #e0e0e0 #808080   #b0b0b0
+client.unfocused        #8080c0 #8080c0 #e0e0e0 #8080c0   #b0b0f0
+client.urgent           #2f343a #800000 #ffffff #ffffff   #800000
+client.placeholder      #000000 #0c0c0c #ffffff #ffffff   #0c0c0c
+client.background       #ffffff
+
+# wm bar
+bar {
+# output primary
+# output nonprimary
+  tray_output primary
+# tray_output none
+# status_command i3status
+  status_command i3blocks
+  position top
+
+  strip_workspace_name yes
+  binding_mode_indicator yes
+
+  font pango:Yutapon coding Heavy Sl 20px
+  colors {
+#   focused_background  #e0e0ff
+#   focused_statusline  #808080
+#   focused_separator   #f0c0f0
+#   focused_workspace   #e0e0ff #ffd8d8 #6060a0
+#   inactive_workspace  #e8e8e8 #e0e0e0 #808080
+
+#   background          #e0e0ff
+#   statusline          #808080
+#   separator           #f0c0f0
+#   active_workspace    #e0e0ff #ffd8d8 #6060a0
+#   inactive_workspace
+
+#   # border background text_color
+#   urgent_workspace    #ffffff #0000ff #808080
+#   binding_mode        #ff00ff #604020 #e0f0ff
+
+    focused_background  #9090c0
+    focused_statusline  #f0f0f0
+    focused_separator   #e0c0e0
+    focused_workspace   #9090c0 #c09090 #f0f0f0
+    inactive_workspace  #9090c0 #9090c0 #e0e0e0
+
+    background          #9090c0
+    statusline          #f0f0f0
+    separator           #c090c0
+    active_workspace    #9090c0 #c09090 #f0f0f0
+#   inactive_workspace
+
+    # border background text_color
+    urgent_workspace    #ffffff #0000ff #808080
+    binding_mode        #a0ffa0 #c09090 #e0f0ff
+  }
+}
+

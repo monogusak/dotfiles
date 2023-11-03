@@ -1,0 +1,23 @@
+
+# resize window
+bindsym $mod+r mode "resize"
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+  bindsym j     resize shrink width   10 px or 10 ppt
+  bindsym k     resize grow   height  10 px or 10 ppt
+  bindsym l     resize grow   width   10 px or 10 ppt
+  bindsym i     resize shrink height  10 px or 10 ppt
+
+  bindsym m resize set width 1916 px height 1050 px ; move absolute position 2px 30px
+# bindsym Shift+m move absolute position center
+  bindsym Shift+j move left   16 px
+  bindsym Shift+k move down   16 px
+  bindsym Shift+l move right  16 px
+  bindsym Shift+i move up     16 px
+
+  # back to default
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+

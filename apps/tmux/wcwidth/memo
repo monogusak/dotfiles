@@ -1,0 +1,33 @@
+あいまい幅対応
+2023/11/03 インストールしたが結局よく分からない
+
+git clone https://github.com/hamano/locale-eaw
+sudo cp locale-eaw/UTF-8-EAW-FULLWIDTH.gz /usr/share/i18n/charmaps/
+
+pushd locale-eaw
+
+cp /usr/share/i18n/charmaps/UTF-8.gz .
+gunzip UTF-8.gz
+
+# unicode の情報取得
+curl https://www.unicode.org/Public/14.0.0/ucd/EastAsianWidth.txt -O
+curl https://unicode.org/Public/UNIDATA/UnicodeData.txt -O
+
+
+# East Asian Ambiguous Widthと絵文字の為の修正ロケール の導入
+sudo cp locale-eaw/UTF-8-EAW-FULLWIDTH.gz /usr/share/i18n/charmaps/
+sudo cp /etc/locale.gen /etc/locale.gen.bk
+## sudo cp  /etc/locale.gen.bk /etc/locale.gen
+sudo sed -i 's/^ja_JP.UTF-8 UTF-8$/ja_JP.UTF-8 UTF-8-EAW-FULLWIDTH/' /etc/locale.gen
+diff /etc/locale.gen.bk /etc/locale.gen
+sudo locale-gen
+
+##sudo cp /usr/share/i18n/charmaps/UTF-8.gz /usr/share/i18n/charmaps/UTF-8-EAW-FULLWIDTH.gz
+##sudo cp locale-eaw/UTF-8-EAW-FULLWIDTH.gz /usr/share/i18n/charmaps/UTF-8-EAW-FULLWIDTH.gz
+##sudo cp locale-eaw/UTF-8.gz               /usr/share/i18n/charmaps/UTF-8-EAW-FULLWIDTH.gz
+# sudo cp UTF-8.gz                          /usr/share/i18n/charmaps/UTF-8-EAW-FULLWIDTH.gz
+# sudo locale-gen
+
+popd
+
+#▎→▎🀀🌶🐿

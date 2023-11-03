@@ -1,0 +1,273 @@
+# prefix
+unbind C-b
+set -g prefix C-s
+# bind C-s send-prefix
+# bind s send-prefix
+
+set -g default-shell /bin/bash
+set -g default-command /bin/bash
+
+set -s escape-time 0
+set -g base-index 1
+set -g pane-base-index 1
+set -g automatic-rename off
+set -g monitor-activity on
+set -g status-interval 20
+
+# unbind
+# 使わないキーは封印
+unbind   o
+unbind   w
+unbind   PPage
+unbind      Up
+unbind    Down
+unbind    Left
+unbind   Right
+unbind     M-1
+unbind     M-2
+unbind     M-3
+unbind     M-4
+unbind     M-5
+unbind     M-n
+unbind     M-o
+unbind     M-p
+unbind  M-Up
+unbind  M-Down
+unbind  M-Left
+unbind  M-Right
+unbind  C-Up
+unbind  C-Down
+unbind  C-Left
+unbind  C-Right
+unbind  S-Up
+unbind  S-Down
+unbind  S-Left
+unbind  S-Right
+unbind  DC
+
+unbind -T copy-mode C-Space
+unbind -T copy-mode C-a
+unbind -T copy-mode C-b
+unbind -T copy-mode C-c
+unbind -T copy-mode C-e
+unbind -T copy-mode C-f
+unbind -T copy-mode C-g
+unbind -T copy-mode C-k
+unbind -T copy-mode C-n
+unbind -T copy-mode C-p
+unbind -T copy-mode C-r
+unbind -T copy-mode C-s
+unbind -T copy-mode C-v
+unbind -T copy-mode C-w
+unbind -T copy-mode Escape
+unbind -T copy-mode Space
+unbind -T copy-mode ,
+unbind -T copy-mode \;
+unbind -T copy-mode F
+unbind -T copy-mode N
+unbind -T copy-mode R
+unbind -T copy-mode T
+unbind -T copy-mode f
+unbind -T copy-mode g
+unbind -T copy-mode n
+unbind -T copy-mode q
+unbind -T copy-mode t
+unbind -T copy-mode MouseDown1Pane
+unbind -T copy-mode MouseDrag1Pane
+unbind -T copy-mode MouseDragEnd1Pane
+unbind -T copy-mode WheelUpPane
+unbind -T copy-mode WheelDownPane
+unbind -T copy-mode DoubleClick1Pane
+unbind -T copy-mode TripleClick1Pane
+unbind -T copy-mode Home
+unbind -T copy-mode End
+unbind -T copy-mode NPage
+unbind -T copy-mode PPage
+unbind -T copy-mode Up
+unbind -T copy-mode Down
+unbind -T copy-mode Left
+unbind -T copy-mode Right
+unbind -T copy-mode M-C-b
+unbind -T copy-mode M-C-f
+unbind -T copy-mode M-1
+unbind -T copy-mode M-2
+unbind -T copy-mode M-3
+unbind -T copy-mode M-4
+unbind -T copy-mode M-5
+unbind -T copy-mode M-6
+unbind -T copy-mode M-7
+unbind -T copy-mode M-8
+unbind -T copy-mode M-9
+unbind -T copy-mode M-<
+unbind -T copy-mode M->
+unbind -T copy-mode M-R
+unbind -T copy-mode M-b
+unbind -T copy-mode M-f
+unbind -T copy-mode M-m
+unbind -T copy-mode M-r
+unbind -T copy-mode M-v
+unbind -T copy-mode M-w
+unbind -T copy-mode "M-{"
+unbind -T copy-mode "M-}"
+unbind -T copy-mode M-Up
+unbind -T copy-mode M-Down
+unbind -T copy-mode C-Up
+unbind -T copy-mode C-Down
+
+unbind -T root MouseDown1Pane
+unbind -T root MouseDown1Status
+unbind -T root MouseDown3Pane
+unbind -T root MouseDown3Status
+unbind -T root MouseDown3StatusLeft
+unbind -T root MouseDown3StatusRight
+unbind -T root MouseDrag1Pane
+unbind -T root MouseDrag1Border
+unbind -T root WheelUpPane
+unbind -T root WheelUpStatus
+unbind -T root WheelDownStatus
+unbind -T root M-MouseDown3Pane
+
+# new
+bind    V     new-window
+bind    v     split-window -h
+bind    C-v   split-window -v
+
+# kill
+bind    X     detach-client
+bind    x     confirm-before -p "kill-window #W? (y/n)" kill-window
+bind    C-x   confirm-before -p "kill-pane #P? (y/n)" kill-pane
+
+# rename
+bind    N     command-prompt -I "#S" "rename-session -- '%%'"
+bind    n     command-prompt -I "#W" "rename-window  -- '%%'"
+bind    C-n   command-prompt -I "#W" "rename-window  -- '%%'"
+
+# choose
+bind    E     choose-tree -Gs
+bind    e     choose-tree -Gw
+bind    C-e   choose-tree -GZ
+
+# move
+bind -r [     switch-client -p
+bind -r ]     switch-client -n
+bind -r '{'   select-window -t :-
+bind -r '}'   select-window -t :+
+bind -r (     select-pane   -t :.-
+bind -r )     select-pane   -t :.+
+
+bind    a     select-window -t :1
+bind    s     select-window -t :2
+bind    d     select-window -t :3
+bind    f     select-window -t :4
+bind    g     select-window -t :5
+
+bind    C-a   select-pane  -t .1
+bind    C-s   select-pane  -t .2
+bind    C-d   select-pane  -t .3
+bind    C-f   select-pane  -t .4
+bind    C-g   select-pane  -t .5
+
+bind    A     join-pane -dt :1
+bind    S     join-pane -dt :2
+bind    D     join-pane -dt :3
+bind    F     join-pane -dt :4
+bind    G     join-pane -dt :5
+
+# resize
+bind -r h     resize-pane -L 3
+bind -r l     resize-pane -R 3
+bind -r ,     resize-pane -D 3
+bind -r i     resize-pane -U 3
+
+# layout
+bind -r C-Space previous-layout
+bind -r Space   next-layout
+bind -r C-o     rotate-window
+
+# clipboard
+bind   y run "tmux save-buffer - | xsel -b -i"
+bind C-y run "tmux save-buffer - | xsel -p -i"
+bind   p run "xsel -b | tmux load-buffer - && tmux paste-buffer"
+bind C-p run "xsel -p | tmux load-buffer - && tmux paste-buffer"
+
+# other
+bind ? list-keys -T prefix
+bind / list-keys -T copy-mode-vi
+bind r   source-file ~/.tmux.conf \; display 'Reloaded'
+bind C-r source-file ~/.tmux.conf \; display 'Reloaded'
+bind Q setw synchronize-panes \; display "synchronize-panes #{?pane_synchronized,on,off}"
+
+# copy mode
+# setw -g mode-keys emacs
+set -g mode-keys vi
+bind    Escape copy-mode
+bind    Tab    choose-buffer
+bind    Enter  paste-buffer
+
+# viモードがvimっぽくないので修正
+# bind -T copy-mode-vi y copy-selection
+# bind -T copy-mode-vi Y copy-line
+# bind -T copy-mode-vi v begin-selection
+# bind -T copy-mode-vi V select-line
+# bind -T copy-mode-vi C-v rectangle-toggle
+# bind -T copy-mode-vi C-y scroll-up
+# bind -T copy-mode-vi C-e scroll-down
+
+# display
+#   window title
+set -g set-titles on
+set -g set-titles-string "tmux.#S.#W"
+
+
+set -g display-time 5000
+
+# true color
+set-option -g default-terminal "tmux-256color"
+set-option -ga terminal-overrides ",$TERM:Tc"
+
+#   border
+set -g pane-border-style        fg=colour96,bg=colour16
+set -g pane-active-border-style fg=colour219,bg=colour16
+
+# message
+set -g message-style            fg=colour253,bg=colour16
+
+#   status
+set -g status-left "#S:#I.#P "
+set -g status-right "%Y-%m-%d %H:%M"
+set -g status-justify centre
+set -g status-style bg=colour16,fg=colour225
+
+#   status-window
+#setw -g mode-style                  fg=colour253,bg=colour96
+setw -g mode-style                  fg=colour253,bg=colour1
+setw -g window-status-style         fg=colour219
+setw -g window-status-current-style fg=colour225,bg=colour96,bold,underscore
+
+# mouse
+#set -g mode-mouse on
+#set -g mouse-resize-pane on
+#set -g mouse-select-pane on
+#set -g mouse-select-window on
+#set -g mouse-utf8 on
+
+##  ステータス行の書式
+# #(コマンド行)     コマンド出力の最初の行
+# #[属性]           色/属性の変更(例:#[fg=cyan,bright])
+# #H                ホスト名
+# #I                ウィンドウ番号
+# #P                ペイン番号
+# #S                セッション名
+# #T                ウィンドウタイトル
+# #W                ウィンドウ名
+# ##                「#」の文字
+# $XXX              環境変数使える
+# コマンドは繰り返し実行される (更新頻度はstatus-intervalによる・既定値は15秒)
+##  色指定
+# black red green yellow blue magenta cyan white colour
+# 256色はcolour219とかで指定，色数が少ない環境の色もコメントでかいとく
+##  属性指定
+#   default bright bold underscore reverse hidden blink dim
+##  位置指定
+# left right centre
+

@@ -1,0 +1,50 @@
+
+# https://ti001.blog.fc2.com/blog-entry-948.html を少し改変
+################################
+# Ruby のインストールに必要なツールをインストール
+sudo apt update
+sudo apt install gcc make
+sudo apt install libssl-dev zlib1g-dev libyaml-dev
+
+
+################################
+# Ruby をインストール
+git clone --depth 1 https://github.com/rbenv/rbenv.git ~/.rbenv
+
+################################
+# rbenv の高速化
+pushd ~/.rbenv
+  src/configure && make -C src
+popd
+
+################################
+# .bashrc や .bash_profile 等に以下の記述を追加
+# 
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init - bash)"
+# 
+# source ~/.bashrc 等で再読み込み
+
+git clone --depth 1 https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+
+################################
+# インストール可能な Ruby のバージョンを確認
+rbenv install -l
+
+################################
+# バージョンを指定して Ruby をインストール
+# ここではバージョン 3.1.2
+rbenv install 3.1.2
+
+################################
+# バージョン切り替え
+# ここではバージョン 3.1.2
+rbenv global 3.1.2
+
+# source ~/.bashrc 等で再読み込み
+
+
+###############################################################
+################################
+# vim対応
+gem install neovim
